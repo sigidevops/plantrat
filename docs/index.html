@@ -131,31 +131,6 @@
                 return 6;
         };
 
-        // Agregar una leyenda al mapa
-	var legend = L.control({ position: 'bottomright' });
-
-	legend.onAdd = function (map) {
-    		var div = L.DomUtil.create('div', 'info legend'),
-        		categories = [
-				{ color: 'VERDE', label: 'FAVORABLE' },
-            			{ color: 'AMARILLO', label: 'MODERADO' },
-            			{ color: 'ROJO', label: 'ALARMANTE' },
-            			{ color: 'GRIS', label: 'NO TAN DESFAVORABLE' }],
-        		];
-
-    		// Generar la leyenda con colores y descripciones
-    		for (var i = 0; i < categories.length; i++) {
-        		div.innerHTML +=
-            			'<i style="background:' + getColor(categories[i]) + '"></i> ' +
-            			categories[i] + '<br>';
-    		}
-
-    		return div;
-	};
-
-	// Agregar la leyenda al mapa
-	legend.addTo(map);
-
     </script>
 </body>
 
