@@ -26,6 +26,22 @@
             height: 780px;
             box-shadow: 5px 5px 5px #888;
         }
+
+	.info.legend {
+    	background-color: white;
+    	padding: 10px;
+    	line-height: 18px;
+    	color: #555;
+	}
+
+	.info.legend i {
+   	 width: 18px;
+    	height: 18px;
+    	float: left;
+    	margin-right: 8px;
+    	opacity: 0.7;
+	}
+
     </style>
 </head>
 
@@ -122,6 +138,27 @@
             if (d == "GRIS")
                 return 6;
         };
+
+        // Agregar una leyenda al mapa
+	    var legend = L.control({ position: 'bottomright' });
+
+	    legend.onAdd = function (map) {
+    		var div = L.DomUtil.create('div', 'info legend'),
+        		categories = ['VERDE', 'AMARILLO', 'ROJO', 'GRIS'],
+        		labels = [];
+
+    		// Generar la leyenda con colores y descripciones
+    		for (var i = 0; i < categories.length; i++) {
+        		div.innerHTML +=
+            			'<i style="background:' + getColor(categories[i]) + '"></i> ' +
+            			categories[i] + '<br>';
+    		}
+
+    		return div;
+	      };
+
+	  // Agregar la leyenda al mapa
+	  legend.addTo(map);
 
     </script>
 </body>
