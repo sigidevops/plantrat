@@ -136,8 +136,12 @@
 
 	    legend.onAdd = function (map) {
     		var div = L.DomUtil.create('div', 'info legend'),
-        		categories = ['VERDE', 'AMARILLO', 'ROJO', 'GRIS'],
-        		labels = [];
+        		categories = [
+				{ color: 'VERDE', label: 'FAVORABLE' },
+            			{ color: 'AMARILLO', label: 'MODERADO' },
+            			{ color: 'ROJO', label: 'ALARMANTE' },
+            			{ color: 'GRIS', label: 'NO TAN DESFAVORABLE' }],
+        		];
 
     		// Generar la leyenda con colores y descripciones
     		for (var i = 0; i < categories.length; i++) {
