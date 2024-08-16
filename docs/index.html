@@ -53,6 +53,14 @@
             "OpenStreetMap": osm
         };
 
+        $.getJSON("./datos/15ent.geojson", function (data) {
+            L.geoJson(data, {
+                fillOpacity: 0,
+                color: "#000000",
+                weight: 3,
+                onEachFeature: function (feature, layer) {}
+            }).addTo(map)
+        });
         // load GeoJSON from an external file
         $.getJSON("./datos/ptars_merge.geojson", function (data) {
             L.geoJson(data, {
