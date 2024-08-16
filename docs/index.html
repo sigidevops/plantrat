@@ -132,9 +132,9 @@
         };
 
         // Agregar una leyenda al mapa
-	    var legend = L.control({ position: 'bottomright' });
+	var legend = L.control({ position: 'bottomright' });
 
-	    legend.onAdd = function (map) {
+	legend.onAdd = function (map) {
     		var div = L.DomUtil.create('div', 'info legend'),
         		categories = [
 				{ color: 'VERDE', label: 'FAVORABLE' },
@@ -151,10 +151,10 @@
     		}
 
     		return div;
-	      };
+	};
 
-	  // Agregar la leyenda al mapa
-	  legend.addTo(map);
+	// Agregar la leyenda al mapa
+	legend.addTo(map);
 
     </script>
 </body>
