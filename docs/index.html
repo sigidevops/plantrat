@@ -49,52 +49,62 @@
             layers: [osm]
         });
 
+        var baseMaps = {
+            "OpenStreetMap": osm
+        };
+
         // load GeoJSON from an external file
-        $.getJSON("./datos/ptar.geojson", function (data) {
+        $.getJSON("./datos/ptars_merge.geojson", function (data) {
             L.geoJson(data, {
                 pointToLayer: function (feature, latlng) {
-                    var marker = L.marker(latlng);
+
+                    var geojsonMarkerOptions = {
+                        radius: markerSize(feature.properties.CATEGORIA),
+                        fillColor: getColor(feature.properties.CATEGORIA),
+                        color: "#000",
+                        weight: 1,
+                        opacity: 1,
+                        fillOpacity: 1.0
+                    };
+
+                    var marker = L.circleMarker(latlng, geojsonMarkerOptions);
                     marker.bindPopup(
-                        "Clave del municipio: " + feature.properties.CVE_MUN + '<br/>' +
-                        "Nombre de la localidad: " + feature.properties.NOMGEO);
+                        '<b>' + "Situación actual: " + '</b>' + feature.properties.situacion_actual + '<br/>' + '<br/>' +
+                        '<b>' + "Nombre de la planta: " + '</b>' + feature.properties.nombre + '<br/>' +
+                        '<b>' + "Localidad: " + '</b>' + feature.properties.localidad + '<br/>' +
+                        '<b>' + "Municipio: " + '</b>' + feature.properties.municipio
+                    );
+                    marker.on('mouseover', function (e) {
+                        this.openPopup();
+                    });
+                    marker.on('mouseout', function (e) {
+                        this.closePopup();
+                    });
                     return marker;
                 }
             }).addTo(map);
         });
 
-        var baseMaps = {
-            "OpenStreetMap": osm
+        function getColor(d) {
+            if (d == "VERDE")
+                return "#26A600";
+            if (d == "AMARILLO")
+                return "#FFDC00";
+            if (d == "ROJO")
+                return "#FF0000";
+            if (d == "GRIS")
+                return "#BCBCBC";
         };
 
-
-        // Funciones para el mapa
-
-        var layerPopup;
-
-        function onEachFeature(feature, layer) {
-            layer.on('mouseover', function (e) {
-                console.log(e.sourceTarget.feature.properties);
-                e.target.setStyle({
-                    fillOpacity: 1.0
-                });
-                if (map) {
-                    var layerPopup = L.popup()
-                        .setLatLng(e.latlng)
-                        .setContent("Clave del municipio: " + e.sourceTarget.feature.properties.CVE_MUN + "</br>" +
-                            "NOMGEO: " + e.sourceTarget.feature.properties.NOMGEO + "</br>" +
-                            "D_REPDA: " + e.sourceTarget.feature.properties.D_REPDA + "</br>" +
-                            "Observación: " + e.sourceTarget.feature.properties.OBSERVACIO
-                        )
-                        .openOn(map);
-                }
-            });
-            layer.on('mouseout', function (e) {
-                e.target.setStyle({
-                    fillOpacity: 0.75
-                });
-                map.closePopup(layerPopup);
-                layerPopup = null;
-            });
+        function markerSize(d) {
+            if (d == "VERDE")
+                return 6;
+            if (d == "AMARILLO")
+                return 8;
+            if (d == "ROJO")
+                return 10;
+            if (d == "GRIS")
+                return 6;
         };
 
     </script>
