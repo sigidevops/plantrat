@@ -69,10 +69,18 @@
 
                     var marker = L.circleMarker(latlng, geojsonMarkerOptions);
                     marker.bindPopup(
-                        '<b>' + "Situación actual: " + '</b>' + feature.properties.situacion_actual + '<br/>' + '<br/>' +
+                        '<b>' + "Situación actual: " + '</b>' + feature.properties.situacion_actual + '<br/>' +
+                        '<b>' + "Opera: " + '</b>' + feature.properties.opera + '<br/>' + '<br/>' +
                         '<b>' + "Nombre de la planta: " + '</b>' + feature.properties.nombre + '<br/>' +
                         '<b>' + "Localidad: " + '</b>' + feature.properties.localidad + '<br/>' +
-                        '<b>' + "Municipio: " + '</b>' + feature.properties.municipio
+                        '<b>' + "Municipio: " + '</b>' + feature.properties.municipio + '<br/>' +
+                        '<b>' + "Proceso de tratamiento: " + '</b>' + feature.properties.tratamient + '<br/>' +
+                        '<b>' + "Normatividad de diseño: " + '</b>' + feature.properties.diseno_nom + '<br/>' +
+                        '<b>' + "Capacidad instalada (L/s): " + '</b>' + feature.properties.cap_inst_l + '<br/>' +
+                        '<b>' + "Capacidad de operación: " + '</b>' + feature.properties.cap_operac + '<br/>' +
+                        '<b>' + "Coordenadas: " + '</b>' + "(" + feature.properties.lat + ", " + feature.properties.long + ")" + '<br/>' +
+                        '<b>' + "Inversión de rehabilitación: " + '</b>' + "$" + feature.properties.inver_rehab_1 + '<br/>' +
+                        '<b>' + "Inversión de rehabilitación: " + '</b>' + "$" + feature.properties.inver_rehab_2 + '<br/>'
                     );
                     marker.on('mouseover', function (e) {
                         this.openPopup();
@@ -87,7 +95,7 @@
 
         function getColor(d) {
             if (d == "VERDE")
-                return "#26A600";
+                return "#BCBCBC";
             if (d == "AMARILLO")
                 return "#FFDC00";
             if (d == "ROJO")
@@ -102,7 +110,7 @@
             if (d == "AMARILLO")
                 return 8;
             if (d == "ROJO")
-                return 10;
+                return 12;
             if (d == "GRIS")
                 return 6;
         };
