@@ -78,13 +78,13 @@
         });
 
         // load GeoJSON from an external file
-        $.getJSON("./datos/ptars_merge.geojson", function (data) {
+        $.getJSON("./datos/ptars_alvaro.geojson", function (data) {
             L.geoJson(data, {
                 pointToLayer: function (feature, latlng) {
 
                     var geojsonMarkerOptions = {
-                        radius: markerSize(feature.properties.CATEGORIA),
-                        fillColor: getColor(feature.properties.CATEGORIA),
+                        radius: markerSize(feature.properties.color),
+                        fillColor: getColor(feature.properties.color),
                         color: "#000",
                         weight: 1,
                         opacity: 1,
@@ -93,18 +93,18 @@
 
                     var marker = L.circleMarker(latlng, geojsonMarkerOptions);
                     marker.bindPopup(
-                        '<b>' + "Situación actual: " + '</b>' + feature.properties.situacion_actual + '<br/>' +
+                        '<b>' + "Situación actual: " + '</b>' + feature.properties.sitactual + '<br/>' +
                         '<b>' + "Opera: " + '</b>' + feature.properties.opera + '<br/>' + '<br/>' +
                         '<b>' + "Nombre de la planta: " + '</b>' + feature.properties.nombre + '<br/>' +
                         '<b>' + "Localidad: " + '</b>' + feature.properties.localidad + '<br/>' +
-                        '<b>' + "Municipio: " + '</b>' + feature.properties.municipio + '<br/>' +
-                        '<b>' + "Proceso de tratamiento: " + '</b>' + feature.properties.tratamient + '<br/>' +
-                        '<b>' + "Normatividad de diseño: " + '</b>' + feature.properties.diseno_nom + '<br/>' +
-                        '<b>' + "Capacidad instalada (L/s): " + '</b>' + feature.properties.cap_inst_l + '<br/>' +
-                        '<b>' + "Capacidad de operación: " + '</b>' + feature.properties.cap_operac + '<br/>' +
+                        '<b>' + "Municipio: " + '</b>' + feature.properties.mun + '<br/>' +
+                        '<b>' + "Proceso de tratamiento: " + '</b>' + feature.properties.proctratam + '<br/>' +
+                        '<b>' + "Normatividad de diseño: " + '</b>' + feature.properties.nomdiseno + '<br/>' +
+                        '<b>' + "Capacidad instalada: " + '</b>' + feature.properties.capinstalp + " L/s" + '<br/>' +
+                        '<b>' + "Capacidad de operación: " + '</b>' + feature.properties.capoperac + " L/s" + '<br/>' +
                         '<b>' + "Coordenadas: " + '</b>' + "(" + feature.properties.lat + ", " + feature.properties.long + ")" + '<br/>' +
-                        '<b>' + "Inversión de rehabilitación: " + '</b>' + "$" + feature.properties.inver_rehab_1 + '<br/>' +
-                        '<b>' + "Inversión de rehabilitación: " + '</b>' + "$" + feature.properties.inver_rehab_2 + '<br/>'
+                        '<b>' + "Inversión de rehabilitación: " + '</b>' + feature.properties.invrehab1 + '<br/>' +
+                        '<b>' + "Inversión de rehabilitación: " + '</b>' + feature.properties.invrehab2 + '<br/>'
                     );
                     marker.on('mouseover', function (e) {
                         this.openPopup();
