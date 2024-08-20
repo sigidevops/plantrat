@@ -70,7 +70,7 @@
 
         $.getJSON("./datos/15ent.geojson", function (entData) {
             L.geoJson(entData, {
-                onEachFeature: function (feature, layer) {},
+                onEachFeature: function (feature, layer) { },
                 weight: 3,
                 color: "#000000",
                 fillOpacity: 0
@@ -104,13 +104,18 @@
                         '<b>' + "Capacidad de operación: " + '</b>' + feature.properties.capoperac + " L/s" + '<br/>' +
                         '<b>' + "Coordenadas: " + '</b>' + "(" + feature.properties.lat + ", " + feature.properties.long + ")" + '<br/>' +
                         '<b>' + "Inversión de rehabilitación: " + '</b>' + feature.properties.invrehab1 + '<br/>' +
-                        '<b>' + "Inversión de rehabilitación: " + '</b>' + feature.properties.invrehab2 + '<br/>'
+                        '<b>' + "Inversión de rehabilitación: " + '</b>' + feature.properties.invrehab2 + '<br/>' +
+                        '<b>' + "Ficha infográfica: " + '</b>' + '<i> Da click en el punto para ver la ficha. </i>' + '<br/>'
                     );
                     marker.on('mouseover', function (e) {
                         this.openPopup();
                     });
                     marker.on('mouseout', function (e) {
                         this.closePopup();
+                    });
+                    marker.on('click', function (e) {
+                        window.open(e.target.feature.properties.url);
+                        console.log(e.target.feature.properties.url);
                     });
                     return marker;
                 }
@@ -139,30 +144,30 @@
                 return 6;
         };
 
-	// Agregar una leyenda al mapa
-	var legend = L.control({ position: 'bottomright' });
+        // Agregar una leyenda al mapa
+        var legend = L.control({ position: 'bottomright' });
 
-	legend.onAdd = function (map) {
-    		var div = L.DomUtil.create('div', 'info legend'),
-        		categories = [
-				{ color: 'VERDE', label: 'Favorable' },
-            			{ color: 'AMARILLO', label: 'Moderado' },
-            			{ color: 'ROJO', label: 'Alarmante' },
-            			{ color: 'GRIS', label: 'No tan desfavorable' }	
-        		];
+        legend.onAdd = function (map) {
+            var div = L.DomUtil.create('div', 'info legend'),
+                categories = [
+                    { color: 'VERDE', label: 'Favorable' },
+                    { color: 'AMARILLO', label: 'Moderado' },
+                    { color: 'ROJO', label: 'Alarmante' },
+                    { color: 'GRIS', label: 'No tan desfavorable' }
+                ];
 
-    		 // Agregar el título de la leyenda
-    	 	 div.innerHTML = '<strong style="text-align: center; display: block; font-size: 18px;">SITUACIÓN</strong><br>';
+            // Agregar el título de la leyenda
+            div.innerHTML = '<strong style="text-align: center; display: block; font-size: 18px;">SITUACIÓN</strong><br>';
 
-		// Generar la leyenda con colores y descripciones
-    		for (var i = 0; i < categories.length; i++) {
-        		div.innerHTML +=
-            			'<i style="background:' + getColor(categories[i].color) + '; width: 18px; height: 18px; display: inline-block;"></i> ' +
-            			'<span style="font-size: 16px;">' + categories[i].label + '</span><br>';
-    		}
+            // Generar la leyenda con colores y descripciones
+            for (var i = 0; i < categories.length; i++) {
+                div.innerHTML +=
+                    '<i style="background:' + getColor(categories[i].color) + '; width: 18px; height: 18px; display: inline-block;"></i> ' +
+                    '<span style="font-size: 16px;">' + categories[i].label + '</span><br>';
+            }
 
-    		return div;
-	  };
+            return div;
+        };
 
         // Agregar la leyenda al mapa
         legend.addTo(map);
